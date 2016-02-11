@@ -1,0 +1,93 @@
+<metro:MetroWindow x:Class="OperatorCreator.Views.MainView"
+                   xmlns:metro="http://metro.mahapps.com/winfx/xaml/controls" 
+                   xmlns:rep="clr-namespace:OperatorCreator.Repository.Models"
+                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                   xmlns:viewmodels="clr-namespace:OperatorCreator.ViewModels"
+                   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                   GlowBrush="{DynamicResource AccentColorBrush}"
+                   mc:Ignorable="d" 
+                   xmlns:cal="http://www.caliburnproject.org"
+                   xmlns:forms="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+                   Title="JsonOperator Creator"
+                   d:DataContext="{d:DesignInstance Type=viewmodels:MainViewModel, IsDesignTimeCreatable=True}"
+                   cal:Bind.AtDesignTime="True"
+                   SizeToContent="WidthAndHeight"
+                   >
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*" MaxHeight="700"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+            </Grid.RowDefinitions>
+
+            
+            <StackPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"  >
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="OperatorId" Margin="5"/>
+                    <TextBox x:Name="OperatorFilterString" VerticalAlignment="Center" MinWidth="100" Margin="5"></TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <Label Content="Name" Margin="5"/>
+                    <TextBox x:Name="NameFilterString" VerticalAlignment="Center" MinWidth="100" Margin="5"></TextBox>
+                </StackPanel>
+            </StackPanel>
+
+            <GroupBox Grid.Row="1" Grid.Column="0" Header="JSON OPERATORS" >
+            <DataGrid ItemsSource="{Binding Operators}" SelectedItem="{Binding SelectedOperator}" AutoGenerateColumns="False" Width="Auto" GridLinesVisibility="All" ColumnWidth="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="OperatorID" Binding="{Binding OperatorId}" />
+                    <DataGridTextColumn Header="Name" Binding="{Binding Name}"/>
+                    <DataGridCheckBoxColumn Header="Offline?" Binding="{Binding IsOfflineSupported}"  ElementStyle="{DynamicResource MetroDataGridCheckBox}"/>
+                    <DataGridTextColumn Header="PrintTemplate" Binding="{Binding PrintTemplate}" />
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}"/>
+                    <DataGridTemplateColumn Header="Fields">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button cal:Message.Attach="ViewFields" Content="View"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Services">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button cal:Message.Attach="ViewServices"  Content="View"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="Commisions">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button cal:Message.Attach="ViewCommissions"  Content="View" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+               
+            </DataGrid>
+            </GroupBox>
+
+
+
+        </Grid>
+
+
+
+    </Grid>
+
+
+
+</metro:MetroWindow>
